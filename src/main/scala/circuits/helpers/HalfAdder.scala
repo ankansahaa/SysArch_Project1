@@ -9,6 +9,6 @@ class HalfAdder extends Module {
   val b    = IO(Input(Bool()))
   val sum  = IO(Output(Bool()))
   val cout = IO(Output(Bool()))
-
-  ???
+sum := a^b 
+cout := a & b
 }
