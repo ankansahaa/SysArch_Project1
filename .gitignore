@@ -12,5 +12,3 @@ submissions/
 .bloop/
 .vscode/
 build/
-
-.devcontainer/devcontainer.json
