@@ -12,7 +12,7 @@ class nBitAdderSubtractor(width: Int) extends Module {
   val cout       = IO(Output(Bool()))
 
   val coutXor = Module(new XORGate)
-  val nAdders = Seq.fill(width)(Module(new FullAdder)) // 8bit adders togeyher
+  val nAdders = Seq.fill(width)(Module(new FullAdder)) // 1bit adders togeyher
   val MynNot  = Module(new nBitNOT(width))
   val MyMux   = Module(new Mux(width))                 // one complete mux bux
 
