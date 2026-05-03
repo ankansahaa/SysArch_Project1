@@ -25,7 +25,7 @@ class nBitAdderSubtractor(width: Int) extends Module {
   for (i <- 0 until width) {
 
     if (i == 0) {
-      nAdders(i).cin := enable_sub
+      nAdders(i).cin := enable_sub // enablesub when 1 used to add 1 bit for 2s compli
     } else {
       nAdders(i).cin := nAdders(i - 1).cout
     } // to choose for i=0 becuae for that only cin is from input and for next it will cin =cout from previous
@@ -38,7 +38,9 @@ class nBitAdderSubtractor(width: Int) extends Module {
   }
   coutXor.a := nAdders(
     width - 1
-  ).cout // becuase for subtraction in mathematich notaion we borrow from front bit so if there is carry that means we have borrowed becz in 2's complement we get get opposite of our bit  so we have to make carry 0
+  ).cout // becuase for subtraction in mathematich no
+
+  // taion we borrow from front bit so if there is carry that means we have borrowed becz in 2's complement we get get opposite of our bit  so we have to make carry 0
   // carry 1 sub 1 - cout 0 ,carry1 sub 0 foor addition cout  =1
   coutXor.b := enable_sub
   cout      := coutXor.out
