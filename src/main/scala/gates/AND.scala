@@ -9,4 +9,3 @@ class ANDGate extends Module {
 
   out := a & b
 }
-

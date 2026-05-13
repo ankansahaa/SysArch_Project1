@@ -8,5 +8,12 @@ class SignedMagnitudeToTwosComplement(width: Int) extends Module {
   val signedMagnitude = IO(Input(Vec(width, Bool())))
   val twosComplement  = IO(Output(Vec(width, Bool())))
 
-  ???
+  val smToOne   = Module(new SignedMagnitudeToOnesComplement(width))
+  val onesToTwo = Module(new OnesComplementToTwosComplement(width))
+
+  smToOne.signedMagnitude  := signedMagnitude
+  onesToTwo.onesComplement := smToOne.onesComplement
+
+  twosComplement := onesToTwo.twosComplement
+
 }
