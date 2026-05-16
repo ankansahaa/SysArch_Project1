@@ -68,12 +68,15 @@ class FloatingPointToInteger extends Module {
       if (bit == e) {
         // Implicit leading 1 from mantissa
         terms(e) := exponentCases(e)
-      } else if (bit < e && e - bit <= 23) {
-        // Contribution from explicit mantissa bits
-        val andGate = Module(new ANDGate)
-        andGate.a := exponentCases(e)
-        andGate.b := mantissa(23 - e + bit)
-        terms(e)  := andGate.out
+      } else {
+        if (bit < e) {
+          if (e - bit <= 23) {
+            val andGate = Module(new ANDGate)
+            andGate.a := exponentCases(e)
+            andGate.b := mantissa(23 - e + bit)
+            terms(e)  := andGate.out
+          }
+        }
       }
     }
 
