@@ -52,10 +52,10 @@ class FloatingPointAddition extends Module {
   def rightShiftBy(value: Vec[Bool], amount: Vec[Bool], width: Int): Vec[Bool] = {
     var current = Wire(Vec(width, Bool()))
     current := value
-
+    val distances = Seq(1, 2, 4, 8, 16, 32, 64, 128)
     for (k <- 0 until 8) {
       val shifted  = Wire(Vec(width, Bool()))
-      val distance = 1 << k
+      val distance = distances(k)
 
       for (i <- 0 until width) {
         if (i + distance < width) {

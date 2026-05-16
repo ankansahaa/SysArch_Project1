@@ -8,11 +8,17 @@ class FloatingPointToInteger extends Module {
   val floatInput = IO(Input(Vec(32, Bool())))
   val intOutput  = IO(Output(Vec(32, Bool())))
 
+  // Helper function: Extract a single bit from an integer value
+  def constBit(value: Int, index: Int, width: Int): Boolean = {
+    val bits = value.toBinaryString.reverse.padTo(width, '0')
+    bits(index) == '1'
+  }
+
   // Helper function: Create a constant vector from an integer value
   def constVec(width: Int, value: Int): Vec[Bool] = {
     val v = Wire(Vec(width, Bool()))
     for (i <- 0 until width) {
-      if (((value >> i) & 1) == 1) {
+      if (constBit(value, i, width)) {
         v(i) := true.B
       } else {
         v(i) := false.B
@@ -28,7 +34,7 @@ class FloatingPointToInteger extends Module {
       val xorGate = Module(new XORGate)
       val notGate = Module(new NOTGate)
       xorGate.a := x(i)
-      if (((value >> i) & 1) == 1) {
+      if (constBit(value, i, width)) {
         xorGate.b := true.B
       } else {
         xorGate.b := false.B
@@ -78,6 +84,7 @@ class FloatingPointToInteger extends Module {
           }
         }
       }
+
     }
 
     val termOr = Module(new nBitOR(31))
